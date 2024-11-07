@@ -2,11 +2,8 @@ package tampilan;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import kelas.category;
-import kelas.user;
 import kelas.user;
 
 
@@ -63,7 +60,7 @@ public class FrameCategory extends javax.swing.JFrame {
                 tID.setText("1");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(FrameCategory.class.getName()).log(Level.SEVERE, null, ex);
+           
         }
     }
  
@@ -234,10 +231,13 @@ public class FrameCategory extends javax.swing.JFrame {
 
     private void bHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bHapusActionPerformed
         
-        category cat = new category();
-        cat.setCategory_id(Integer.parseInt(tID.getText()));
-        cat.hapusKategori();
-        
+        try {
+            category cat = new category();
+            cat.setCategory_id(Integer.parseInt(tID.getText()));
+            cat.hapusKategori();
+        } catch (SQLException sQLException) {
+        } catch (NumberFormatException numberFormatException) {
+        }
         reset();
         loadTable();
     }//GEN-LAST:event_bHapusActionPerformed
