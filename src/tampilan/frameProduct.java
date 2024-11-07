@@ -21,7 +21,7 @@ public class frameProduct extends javax.swing.JFrame {
         initComponents();
         loadTable();
         reset ();
-        comboBox();
+        
         
     }
     void loadTable(){
@@ -42,42 +42,25 @@ public class frameProduct extends javax.swing.JFrame {
                      data.getString("Nama"),
                      data.getString("Deskripsi"),
                      data.getString("Harga"),
-                     data.getString("Kategori"),});
+                     data.getString("Kategori"),
+                     });
                  
              }
-         } catch (Exception e) {
-         
-             
+         } catch (SQLException sQLException) {     
+        } 
+         tProduk.setModel(model);
         }
-
+    
         void reset(){
         
             autoID();
             tID.setEditable();
-            tDesk.setText(null);
+            tDes.setText(null);
             tHarga.setText(null);
             cKategori.setSelectedItem(null);
             tNama.setText(null);     
         } 
-        
-        void comboBox() {
-           ResultSet data = null;
-        try {
-            category cat = new category();
-            data = cat.tampilComBox();
             
-            while (data.next()) {
-            String isi = data.getString("category_name");
-            cKategory.addItem(isi);    
-        }
-            
-        } catch (Exception e) {
-        }
-        tProduk.setModel(model);    
-        
-        } 
-        
-        }
         
         void autoID() {
         
@@ -126,11 +109,12 @@ public class frameProduct extends javax.swing.JFrame {
         bHapus = new javax.swing.JButton();
         tID = new java.awt.TextField();
         tNama = new java.awt.TextField();
-        tDesk = new java.awt.TextField();
         tHarga = new java.awt.TextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tProduk = new javax.swing.JTable();
         cKategori = new javax.swing.JComboBox<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tDes = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -173,8 +157,6 @@ public class frameProduct extends javax.swing.JFrame {
             }
         });
 
-        tDesk.setText("textField3");
-
         tHarga.setText("textField4");
 
         tProduk.setModel(new javax.swing.table.DefaultTableModel(
@@ -193,6 +175,11 @@ public class frameProduct extends javax.swing.JFrame {
                 tProdukMouseClicked(evt);
             }
         });
+        tProduk.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                tProdukPropertyChange(evt);
+            }
+        });
         jScrollPane1.setViewportView(tProduk);
 
         cKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -201,6 +188,10 @@ public class frameProduct extends javax.swing.JFrame {
                 cKategoriActionPerformed(evt);
             }
         });
+
+        tDes.setColumns(20);
+        tDes.setRows(5);
+        jScrollPane2.setViewportView(tDes);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -229,11 +220,11 @@ public class frameProduct extends javax.swing.JFrame {
                             .addComponent(jLabel6))
                         .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tDesk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cKategori, 0, 179, Short.MAX_VALUE)
+                            .addComponent(cKategori, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(tHarga, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(tID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tNama, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(tNama, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(64, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -247,13 +238,15 @@ public class frameProduct extends javax.swing.JFrame {
                     .addComponent(tID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(tNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(tDesk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(tNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(tHarga, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -268,7 +261,7 @@ public class frameProduct extends javax.swing.JFrame {
                     .addComponent(bHapus))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -364,6 +357,10 @@ reset();
 
     }//GEN-LAST:event_bUbahActionPerformed
 
+    private void tProdukPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tProdukPropertyChange
+
+    }//GEN-LAST:event_tProdukPropertyChange
+
     
         
  
@@ -383,7 +380,8 @@ reset();
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private java.awt.TextField tDesk;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea tDes;
     private java.awt.TextField tHarga;
     private java.awt.TextField tID;
     private java.awt.TextField tNama;
