@@ -5,13 +5,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import java.sql.SQLDataException;
 import java.sql.SQLException;
-import kelas.koneksi;
-
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 
 /**
  *
@@ -20,6 +15,62 @@ import kelas.koneksi;
 public class category {
     int category_id;
     String category_name;
+
+    public int getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(int category_id) {
+        this.category_id = category_id;
+    }
+
+    public String getCategory_name() {
+        return category_name;
+    }
+
+    public void setCategory_name(String category_name) {
+        this.category_name = category_name;
+    }
+
+    public Connection getKonek() {
+        return konek;
+    }
+
+    public void setKonek(Connection konek) {
+        this.konek = konek;
+    }
+
+    public PreparedStatement getPs() {
+        return ps;
+    }
+
+    public void setPs(PreparedStatement ps) {
+        this.ps = ps;
+    }
+
+    public Statement getSt() {
+        return st;
+    }
+
+    public void setSt(Statement st) {
+        this.st = st;
+    }
+
+    public ResultSet getRs() {
+        return rs;
+    }
+
+    public void setRs(ResultSet rs) {
+        this.rs = rs;
+    }
+
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
+    }
     
     private Connection konek;
     private PreparedStatement ps;
@@ -27,27 +78,12 @@ public class category {
     private ResultSet rs;
     private String query;
 
-    public int getCategory_id()throws SQLException{
+    public category()throws SQLException{
         koneksi koneksi = new koneksi();
         konek = koneksi.connectDb();
-        return 0;
     } 
     
-    public String getCategory_name() {
-        return category_name;
-    }
-    
-    public void setCategory_name(String category_name){
-        this.category_name = category_name;
-    }
- 
-    public void setCategory_id(int category_id) {
-        this.category_id = category_id;
-    }
-    
-    public void setcategory_id(int category_id) {
-        this.category_id = category_id;
-    }
+
     
     public void tambahKategori (){
         query = "INSERT INTO category VALUES (?,?)";
