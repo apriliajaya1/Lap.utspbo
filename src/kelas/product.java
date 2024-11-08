@@ -93,10 +93,10 @@ public class product {
     }
     
     public ResultSet tampilProduk(){
-        query = "SELECT  "
+        query = "SELECT "
                 + "p.product_id AS ID,"
                 + "p.product_name AS Nama,  "
-                + "p.product_desc AS Deskripsi  , "
+                + "p.product_desc AS Deskripsi, "
                 + "p.product_price AS Harga, "
                 + "c.category_name AS Kategori "
                 + "FROM product p "
@@ -105,7 +105,7 @@ public class product {
             st = konek.createStatement();            
             rs = st.executeQuery(query);
         } catch (SQLException sQLException) {
-JOptionPane.showMessageDialog(null, "Data Gagal Tampil");
+        JOptionPane.showMessageDialog(null, "Data Gagal Tampil");
         }
         return rs;
     }    

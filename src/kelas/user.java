@@ -24,7 +24,7 @@ public class user {
 
     public user() throws SQLException{
         koneksi koneksi = new koneksi();
-        konek = koneksi.konekDB();
+        konek = koneksi.connectDb();
     }
     
     public String getUser_name() {

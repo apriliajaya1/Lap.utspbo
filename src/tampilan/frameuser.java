@@ -49,6 +49,7 @@ public class frameuser extends javax.swing.JFrame {
             }
         } catch (SQLException sQLException) {
         }
+        tUser.setModel(model);
     }
 
     void reset() {
